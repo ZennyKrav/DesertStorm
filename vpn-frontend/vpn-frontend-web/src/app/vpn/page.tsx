@@ -1,24 +1,26 @@
 "use client";
 import { useEffect, useState } from "react";
-import VPNStatus from "@/app/components/VPNStatus";
+import { useRouter } from "next/navigation";
+import VPNStatus from "@/app/components/vpnstatus";
 
 export default function VPNPage() {
   const [vpnKey, setVpnKey] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const storedKey = localStorage.getItem("vpnKey");
     if (!storedKey) {
       alert("Encryption key is required.");
-      window.location.href = "/landing";
+      router.push("/");
     } else {
       setVpnKey(storedKey);
     }
-  }, []);
+  }, [router]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
-      <h1 className="text-2xl font-bold mb-4">VPN Connection</h1>
-      <VPNStatus />
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white px-6">
+      <h1 className="text-2xl font-semibold mb-4">VPN Connection</h1>
+      {vpnKey ? <VPNStatus vpnKey={vpnKey} /> : <p>Loading...</p>}
     </div>
   );
 }
