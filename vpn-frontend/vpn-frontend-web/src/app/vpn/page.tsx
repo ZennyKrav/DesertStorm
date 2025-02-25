@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import VPNStatus from "@/app/components/vpnstatus";
+import VPNStatus from "@/app/components/VPNStatus"; // Ensure the correct file path
 
 export default function VPNPage() {
   const [vpnKey, setVpnKey] = useState<string | null>(null);
